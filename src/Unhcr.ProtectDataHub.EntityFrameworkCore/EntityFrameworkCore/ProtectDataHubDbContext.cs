@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Unhcr.ProtectDataHub.Countries;
+using Unhcr.ProtectDataHub.Persons;
+using Unhcr.ProtectDataHub.Regions;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
 using Volo.Abp.Data;
@@ -55,6 +57,8 @@ public class ProtectDataHubDbContext :
 
     #endregion
     public DbSet<Country> Countries { get; set; }
+    public DbSet<Region> Regions { get; set; }
+    public DbSet<Person> Persons { get; set; }
 
     public ProtectDataHubDbContext(DbContextOptions<ProtectDataHubDbContext> options)
         : base(options)
@@ -83,10 +87,39 @@ public class ProtectDataHubDbContext :
             b.ToTable(ProtectDataHubConsts.DbTablePrefix + "Countries", ProtectDataHubConsts.DbSchema);
             b.ConfigureByConvention(); //auto configure for the base class props
             b.Property(x => x.Name).IsRequired().HasMaxLength(128);
-            b.Property(x => x.Code).IsRequired().HasMaxLength(2);
+            b.Property(x => x.IsoCode).IsRequired().HasMaxLength(2);
             b.Property(x => x.ClusterStructure).IsRequired();
         });
-
+        builder.Entity<Region>(b =>
+        {
+            b.ToTable(ProtectDataHubConsts.DbTablePrefix + "Regions", ProtectDataHubConsts.DbSchema);
+            b.ConfigureByConvention(); //auto configure for the base class props
+            b.Property(x => x.Name).IsRequired().HasMaxLength(RegionConsts.MaxNameLength);
+            b.HasIndex(x => x.Name);
+        });
+        builder.Entity<Person>(b =>
+        {
+            b.ToTable(ProtectDataHubConsts.DbTablePrefix + "Persons", ProtectDataHubConsts.DbSchema);
+            b.ConfigureByConvention(); //auto configure for the base class props
+            b.Property(x => x.FullName).IsRequired().HasMaxLength(PersonConsts.MaxFullNameLength);
+            b.Property(x => x.Email).HasMaxLength(PersonConsts.MaxEmailLength);
+            b.Property(x => x.PhoneNumber).HasMaxLength(PersonConsts.MaxPhoneNumberLength);
+            b.Property(x => x.DutyStation).HasMaxLength(PersonConsts.MaxDutyStationLength);
+            b.Property(x => x.OrganizationName).HasMaxLength(PersonConsts.MaxOrganizationNameLength);
+            b.Property(x => x.Aor).IsRequired();
+            b.Property(x => x.LevelofCordination).IsRequired();
+            b.Property(x => x.DutyStation).IsRequired();
+            b.Property(x => x.WorkingfromDutyStation).IsRequired();
+            b.Property(x => x.Organization_Type).IsRequired();
+            b.Property(x => x.Position).IsRequired();
+            b.Property(x => x.Staff).IsRequired();
+            b.Property(x => x.DoubleHatting).IsRequired();
+            b.Property(x => x.StaffGrade).IsRequired();
+            b.Property(x => x.ContractType).IsRequired();
+            b.Property(p => p.StartDate).HasColumnType("date");
+            b.Property(p => p.EndDate).HasColumnType("date");
+            b.HasIndex(x => x.FullName);
+        });
         //builder.Entity<YourEntity>(b =>
         //{
         //    b.ToTable(ProtectDataHubConsts.DbTablePrefix + "YourEntities", ProtectDataHubConsts.DbSchema);
