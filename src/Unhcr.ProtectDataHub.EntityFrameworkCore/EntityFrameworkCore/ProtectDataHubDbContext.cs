@@ -89,6 +89,7 @@ public class ProtectDataHubDbContext :
             b.Property(x => x.Name).IsRequired().HasMaxLength(128);
             b.Property(x => x.IsoCode).IsRequired().HasMaxLength(2);
             b.Property(x => x.ClusterStructure).IsRequired();
+            b.HasOne<Region>().WithMany().HasForeignKey(x => x.RegionId);
         });
         builder.Entity<Region>(b =>
         {
@@ -106,19 +107,21 @@ public class ProtectDataHubDbContext :
             b.Property(x => x.PhoneNumber).HasMaxLength(PersonConsts.MaxPhoneNumberLength);
             b.Property(x => x.DutyStation).HasMaxLength(PersonConsts.MaxDutyStationLength);
             b.Property(x => x.OrganizationName).HasMaxLength(PersonConsts.MaxOrganizationNameLength);
-            b.Property(x => x.Aor).IsRequired();
-            b.Property(x => x.LevelofCordination).IsRequired();
-            b.Property(x => x.DutyStation).IsRequired();
-            b.Property(x => x.WorkingfromDutyStation).IsRequired();
-            b.Property(x => x.Organization_Type).IsRequired();
-            b.Property(x => x.Position).IsRequired();
-            b.Property(x => x.Staff).IsRequired();
-            b.Property(x => x.DoubleHatting).IsRequired();
-            b.Property(x => x.StaffGrade).IsRequired();
-            b.Property(x => x.ContractType).IsRequired();
+            b.Property(x => x.Aor);
+            b.Property(x => x.LevelofCordination);
+            b.Property(x => x.DutyStation);
+            b.Property(x => x.WorkingfromDutyStation);
+            b.Property(x => x.Organization_Type);
+            b.Property(x => x.Position);
+            b.Property(x => x.Staff);
+            b.Property(x => x.DoubleHatting);
+            b.Property(x => x.StaffGrade);
+            b.Property(x => x.ContractType);
             b.Property(p => p.StartDate).HasColumnType("date");
             b.Property(p => p.EndDate).HasColumnType("date");
+            b.Property(x => x.IsActive);
             b.HasIndex(x => x.FullName);
+            b.HasOne<Country>().WithMany().HasForeignKey(x => x.CountryId);
         });
         //builder.Entity<YourEntity>(b =>
         //{

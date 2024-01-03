@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Unhcr.ProtectDataHub.Regions;
 
-public class UpdatePersonDto
+public class UpdateRegionDto
 {
     [Required]
     [StringLength(RegionConsts.MaxNameLength)]

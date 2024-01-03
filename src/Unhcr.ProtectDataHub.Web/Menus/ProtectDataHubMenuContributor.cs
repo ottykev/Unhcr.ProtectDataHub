@@ -46,6 +46,18 @@ public class ProtectDataHubMenuContributor : IMenuContributor
             l["Menu:Countries"],
             url: "/Countries"
         ).RequirePermissions(ProtectDataHubPermissions.Countries.Default)
+    ).AddItem(
+        new ApplicationMenuItem(
+            "ProtectDataHub.Regions",
+            l["Menu:Regions"],
+            url: "/Regions"
+        ).RequirePermissions(ProtectDataHubPermissions.Regions.Default)
+    ).AddItem(
+        new ApplicationMenuItem(
+            "ProtectDataHub.Persons",
+            l["Menu:Persons"],
+            url: "/Persons"
+        ).RequirePermissions(ProtectDataHubPermissions.Persons.Default)
     )
 );
 

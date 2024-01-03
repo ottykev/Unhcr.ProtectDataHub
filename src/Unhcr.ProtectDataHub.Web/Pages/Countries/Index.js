@@ -1,18 +1,19 @@
 ﻿$(function () {
     var l = abp.localization.getResource('ProtectDataHub');
     var createModal = new abp.ModalManager(abp.appPath + 'Countries/CreateModal');
-var editModal = new abp.ModalManager(abp.appPath + 'Countries/EditModal');
-    var dataTable = $('#CountriesTable').DataTable(
+    var editModal = new abp.ModalManager(abp.appPath + 'Countries/EditModal');
+
+    var DataTable = $('#CountriesTable').DataTable(
         abp.libs.datatables.normalizeConfiguration({
             serverSide: true,
             paging: true,
             order: [[1, "asc"]],
             searching: true,
-            scrollx: true,
+            scrollX: true,
             ajax: abp.libs.datatables.createAjax(unhcr.protectDataHub.countries.country.getList),
             columnDefs: [
                 {
-title: l('Actions'),
+                    title: l('Actions'),
                     rowAction: {
                         items:
                             [
@@ -25,7 +26,7 @@ title: l('Actions'),
                                 },
                                 {
                                     text: l('Delete'),
-                                    visible:abp.auth.isGranted('ProtectDataHub.Countries.Delete'),
+                                    visible: abp.auth.isGranted('ProtectDataHub.Countries.Delete'),
                                     confirmMessage: function (data) {
                                         return l('CountryDeletionConfirmationMessage', data.record.name);
                                     },
@@ -42,17 +43,16 @@ title: l('Actions'),
                     }
                 },
                 {
-                    title: l('Id'),
-                    data: "id",
-
-            }
-                {
                     title: l('Name'),
-                    data: "name",
+                    data: "name"
                 },
                 {
                     title: l('IsoCode'),
-                    data: "isoCode",
+                    data: "isoCode"
+                },
+                {
+                    title: l('Region'),
+                    data: "regionName"
                 },
                 {
                     title: l('ClusterStructure'),
@@ -65,11 +65,9 @@ title: l('Actions'),
         })
     );
     var createModal = new abp.ModalManager(abp.appPath + 'Countries/CreateModal');
-    createModal.onResult(function () {
-dataTable.ajax.reload();
-    });
+    createModal.onResult(function () { DataTable.ajax.reload(); });
     editModal.onResult(function () {
-dataTable.ajax.reload();
+        dataTable.ajax.reload();
     });
     $('#NewCountryButton').click(function (e) {
         e.preventDefault();

@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Volo.Abp.Application.Dtos;
 
-namespace Unhcr.ProtectDataHub.Persons
+namespace Unhcr.ProtectDataHub.Persons;
+
+public class GetPersonListDto:PagedAndSortedResultRequestDto
 {
-    internal class GetPersonListDto
-    {
-    }
+    public string? Filter { get; set; }
 }

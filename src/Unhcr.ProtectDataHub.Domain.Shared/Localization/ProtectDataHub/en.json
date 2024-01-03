@@ -3,7 +3,7 @@
   "texts": {
     "Menu:Home": "Home",
     "Welcome": "Welcome",
-    "LongWelcomeMessage": "The UNHCR Global Protection Cluster DataHub.For more information, visit https://globalprotectioncluster.org.",
+    "LongWelcomeMessage": "The UNHCR GPC Integrated Data Hub.For more information, visit https://globalprotectioncluster.org.",
     "Menu:ProtectDataHub": "GPC Data Hub",
     "Menu:Countries": "Countries",
     "Actions": "Actions",
@@ -59,6 +59,7 @@
     "ContractType": "Contract type",
     "StartDate": "Start date",
     "EndDate": "End date",
+    "IsActive": "Is active",
     "NewPerson": "New person",
     "Enum:ClusterAor.0": "None",
     "Enum:ClusterAor.1": "Protection",

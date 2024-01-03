@@ -5,11 +5,13 @@ using Volo.Abp.Application.Services;
 
 namespace Unhcr.ProtectDataHub.Persons;
 
-public interface IPersonAppService: IApplicationService
+public interface IPersonAppService:
+    ICrudAppService< //Defines CRUD methods
+        PersonDto, //Used to show persons
+        Guid, //Primary key of the person entity
+        PagedAndSortedResultRequestDto, //Used for paging/sorting
+        CreatePersonDto,//Used to create a new person
+        UpdatePersonDto> //Used to update person
 {
-    Task<PersonDto> GetAsync(Guid id);
-    Task<PagedResultDto<PersonDto>> GetListAsync(GetPersonListDto input);
-    Task<PersonDto> CreateAsync(CreatePersonDto input);
-    Task UpdateAsync(Guid id, UpdatePersonDto input);
-    Task DeleteAsync(Guid id);
+    Task<ListResultDto<CountryLookupDto>> GetCountryLookupAsync();
 }

@@ -7,7 +7,7 @@ using Unhcr.ProtectDataHub.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
-using Unhcr.ProtectDataHub.Regions;
+using Unhcr.ProtectDataHub.Countries;
 
 namespace Unhcr.ProtectDataHub.Persons;
 

@@ -1,33 +1,35 @@
 ﻿@page
 @using Unhcr.ProtectDataHub.Web.Pages.Countries
-@using Unhcr.ProtectDataHub.Localization
-@using Unhcr.ProtectDataHub.Permissions
-@using Microsoft.Extensions.Localization
-@inject IStringLocalizer<ProtectDataHubResource> L
-@inject IAuthorizationService AuthorizationService
-@using Microsoft.AspNetCore.Authorization
 @model IndexModel
-@section Scripts 
-{
-    <abp-script src="/Pages/Index.js" />
+@using Unhcr.ProtectDataHub.Permissions
+@using Unhcr.ProtectDataHub.Localization
+@using Microsoft.Extensions.Localization
+@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
+@inject IStringLocalizer<ProtectDataHubResource> L
+@section Scripts {
+    <abp-script src="/Pages/Countries/Index.js" />
 }
+
+
 <abp-card>
-<abp-card-header>
-    <abp-row>
-        <abp-column size-md="_6">
-            <abp-card-title>@L["Countries"]</abp-card-title>
-        </abp-column>
-        <abp-column size-md="_6" class="text-end">
-            @if (await AuthorizationService.IsGrantedAsync(ProtectDataHubPermissions.Countries.Create)){
-                <abp-button id="NewCountryButton"
-                            text="@L["NewCountry"].Value"
-                            icon="plus"
-                            button-type="Primary" />
-            }
-        </abp-column>
-    </abp-row>
-</abp-card-header>
-<abp-card-body>
+    <abp-card-header>
+        <abp-row>
+            <abp-column size-md="_6">
+                <abp-card-title>@L["Countries"]</abp-card-title>
+            </abp-column>
+            <abp-column size-md="_6" class="text-end">
+                @if (await AuthorizationService.IsGrantedAsync(ProtectDataHubPermissions.Countries.Create))
+                {
+                    <abp-button id="NewCountryButton"
+                                  text="@L["NewCountry"].Value"
+                                  icon="plus"
+                                  button-type="Primary" />
+                }
+            </abp-column>
+        </abp-row>
+    </abp-card-header>
+    <abp-card-body>
         <abp-table striped-rows="true" id="CountriesTable"></abp-table>
     </abp-card-body>
 </abp-card>

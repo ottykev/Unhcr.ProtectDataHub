@@ -12,4 +12,5 @@ public class Country: AuditedAggregateRoot<Guid>
     public string Name { get; set; }
     public string IsoCode { get; set; }
     public Cluster ClusterStructure { get; set; }
+    public Guid RegionId { get; set; }
 }

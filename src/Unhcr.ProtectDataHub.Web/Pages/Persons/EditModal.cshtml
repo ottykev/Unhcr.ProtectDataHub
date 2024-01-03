@@ -1,0 +1,35 @@
+﻿@page
+@using Unhcr.ProtectDataHub.Localization
+@using Unhcr.ProtectDataHub.Web.Pages.Persons
+@using Microsoft.Extensions.Localization
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@inject IStringLocalizer<ProtectDataHubResource> L
+@model EditModalModel
+@{
+Layout = null;
+}
+<form asp-page="/Persons/EditModal">
+    <abp-modal>
+        <abp-modal-header title="@L["Update"].Value"></abp-modal-header>
+        <abp-modal-body>
+            <abp-input asp-for="Person.FullName" />
+            <abp-input asp-for="Person.Email" />
+            <abp-input asp-for="Person.PhoneNumber" />
+            <abp-input asp-for="Person.Aor" />
+            <abp-input asp-for="Person.LevelofCordination" />
+            <abp-input asp-for="Person.DutyStation" />
+            <abp-input asp-for="Person.WorkingfromDutyStation" />
+            <abp-input asp-for="Person.Organization_Type" />
+            <abp-input asp-for="Person.OrganizationName" />
+            <abp-input asp-for="Person.Position" />
+            <abp-input asp-for="Person.Staff" />
+            <abp-input asp-for="Person.DoubleHatting" />
+            <abp-input asp-for="Person.StaffGrade" />
+            <abp-input asp-for="Person.ContractType" />
+            <abp-input asp-for="Person.StartDate" />
+            <abp-input asp-for="Person.EndDate" />
+            <abp-input asp-for="Person.IsActive" />
+        </abp-modal-body>
+        <abp-modal-footer buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></abp-modal-footer>
+    </abp-modal>
+</form>

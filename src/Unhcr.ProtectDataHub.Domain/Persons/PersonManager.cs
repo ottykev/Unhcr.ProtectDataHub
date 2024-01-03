@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Unhcr.ProtectDataHub.Countries;
+using Unhcr.ProtectDataHub.Regions;
 using Volo.Abp;
 using Volo.Abp.Domain.Services;
 
@@ -18,7 +20,23 @@ public class PersonManager: DomainService
     }
 
     public async Task<Person> CreateAsync(
-                      string fullName, string email, string phoneNumber, ClusterAor aor, Cordination levelofCordination, string dutyStation, bool workingfromDutyStation, OrgType organization_Type, string organizationName, Position position, StaffLevel staff, DoubleHattingLevel doubleHatting, StaffGrade staffGrade, ContractType contractType, DateTime startDate, DateTime endDate
+                      string fullName, 
+                      string email,
+                      string phoneNumber, 
+                      ClusterAor aor, 
+                      Cordination levelofCordination, 
+                      string dutyStation, 
+                      bool workingfromDutyStation, 
+                      OrgType organization_Type, 
+                      string organizationName, 
+                      Position position, 
+                      StaffLevel staff,
+                      DoubleHattingLevel doubleHatting, 
+                      StaffGrade staffGrade, 
+                      ContractType contractType, 
+                      DateTime startDate, 
+                      DateTime endDate,
+                      bool isActive
                       )
     {
         Check.NotNullOrWhiteSpace(fullName, nameof(fullName));
@@ -30,9 +48,25 @@ public class PersonManager: DomainService
         }
 
         return new Person(
-                                  GuidGenerator.Create(),
-                                                                   fullName, email, phoneNumber, aor, levelofCordination, dutyStation, workingfromDutyStation, organization_Type, organizationName, position, staff, doubleHatting, staffGrade, contractType, startDate, endDate
-                                                                                                               );
+               GuidGenerator.Create(),
+                   fullName,
+                   email,
+                   phoneNumber,
+                   aor,
+                   levelofCordination,
+                   dutyStation,
+                   workingfromDutyStation,
+                   organization_Type,
+                   organizationName,
+                   position,
+                   staff,
+                   doubleHatting,
+                   staffGrade,
+                   contractType,
+                   startDate,
+                   endDate,
+                   isActive
+               );
     }
 
     public async Task ChangeNameAsync(

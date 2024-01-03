@@ -9,6 +9,8 @@ public class CountryDto: AuditedEntityDto<Guid>
 {
     public string Name { get; set; }
     public string? IsoCode { get; set; }
+    public Guid RegionId { get; set; }
+    public string RegionName { get; set; }
     public Cluster ClusterStructure { get; set; }
   
 }

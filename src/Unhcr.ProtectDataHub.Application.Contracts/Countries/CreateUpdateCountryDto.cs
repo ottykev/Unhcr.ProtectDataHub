@@ -13,5 +13,6 @@ public class CreateUpdateCountryDto
     [Required]
     [StringLength(2)]
     public string IsoCode { get; set; } = string.Empty;
+    public Guid RegionId { get; set; }
     [Required] public Cluster ClusterStructure { get; set; }
 }

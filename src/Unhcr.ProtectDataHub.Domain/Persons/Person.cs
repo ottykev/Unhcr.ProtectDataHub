@@ -13,6 +13,7 @@ public class Person: FullAuditedAggregateRoot<Guid>
     public string FullName { get; set; }
     public string Email { get; set; }
     public string PhoneNumber { get; set; }
+    public Guid CountryId { get; set; }
     public ClusterAor Aor { get; set; }
     public Cordination LevelofCordination { get; set; }
     public string DutyStation { get; set; }
@@ -26,13 +27,14 @@ public class Person: FullAuditedAggregateRoot<Guid>
     public ContractType ContractType { get; set; }
     public DateTime StartDate { get; set; }
     public DateTime EndDate { get; set; }
+    public bool IsActive { get; set; }
     private Person()
     {
 
     }
 
     internal Person(
-               Guid id, string fullName, string email, string phoneNumber, ClusterAor aor, Cordination levelofCordination, string dutyStation, bool workingfromDutyStation, OrgType organization_Type, string organizationName, Position position, StaffLevel staff, DoubleHattingLevel doubleHatting, StaffGrade staffGrade, ContractType contractType, DateTime startDate, DateTime endDate
+               Guid id, string fullName, string email,string phoneNumber, ClusterAor aor, Cordination levelofCordination, string dutyStation, bool workingfromDutyStation, OrgType organization_Type, string organizationName, Position position, StaffLevel staff, DoubleHattingLevel doubleHatting, StaffGrade staffGrade, ContractType contractType, DateTime startDate, DateTime endDate, bool isActive
                )
         : base(id)
     {
@@ -52,6 +54,7 @@ public class Person: FullAuditedAggregateRoot<Guid>
         ContractType = contractType;
         StartDate = startDate;
         EndDate = endDate;
+        IsActive = isActive;
     }
     internal Person ChangeName(string fullName)
     {

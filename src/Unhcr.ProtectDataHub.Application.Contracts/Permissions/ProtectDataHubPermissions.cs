@@ -13,4 +13,18 @@ public static class ProtectDataHubPermissions
         public const string Edit = Default + ".Edit";
         public const string Delete = Default + ".Delete";
     }
+    public static class Persons
+    {
+        public const string Default = GroupName + ".Persons";
+        public const string Create = Default + ".Create";
+        public const string Edit = Default + ".Edit";
+        public const string Delete = Default + ".Delete";
+    }
+    public static class Regions
+    {
+        public const string Default = GroupName + ".Regions";
+        public const string Create = Default + ".Create";
+        public const string Edit = Default + ".Edit";
+        public const string Delete = Default + ".Delete";
+    }
 }
