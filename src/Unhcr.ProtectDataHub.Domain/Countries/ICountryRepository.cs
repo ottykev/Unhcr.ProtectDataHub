@@ -9,7 +9,7 @@ namespace Unhcr.ProtectDataHub.Countries;
 
 public interface ICountryRepository: IRepository<Country, Guid>
 {
-    Task<Country> FindByNameAsync(string name);
+    Task<Country> FindByCountryNameAsync(string countryName);
     Task<List<Country>> GetListAsync(
                int skipCount,
                       int maxResultCount,

@@ -7,10 +7,10 @@ using Volo.Abp.Domain.Entities.Auditing;
 
 namespace Unhcr.ProtectDataHub.Countries;
 
-public class Country: AuditedAggregateRoot<Guid>
+public class Country:AuditedAggregateRoot<Guid>
 {
     public string Name { get; set; }
-    public string IsoCode { get; set; }
+    public string Code { get; set; }
     public Cluster ClusterStructure { get; set; }
     public Guid RegionId { get; set; }
 }

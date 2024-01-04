@@ -16,17 +16,17 @@
             <abp-input asp-for="Person.FullName" />
             <abp-input asp-for="Person.Email" />
             <abp-input asp-for="Person.PhoneNumber" />
-            <abp-input asp-for="Person.Aor" />
-            <abp-input asp-for="Person.LevelofCordination" />
+            <abp-select asp-for="Person.Aor" asp-items="ViewBag.AorOptions"></abp-select>
+            <abp-select asp-for="Person.LevelofCordination" asp-items="ViewBag.LevelofCordinationOptions"></abp-select>
             <abp-input asp-for="Person.DutyStation" />
             <abp-input asp-for="Person.WorkingfromDutyStation" />
-            <abp-input asp-for="Person.Organization_Type" />
+            <abp-select asp-for="Person.Organization_Type" asp-items="ViewBag.Organization_TypeOptions"></abp-select>
             <abp-input asp-for="Person.OrganizationName" />
-            <abp-input asp-for="Person.Position" />
-            <abp-input asp-for="Person.Staff" />
-            <abp-input asp-for="Person.DoubleHatting" />
-            <abp-input asp-for="Person.StaffGrade" />
-            <abp-input asp-for="Person.ContractType" />
+            <abp-select asp-for="Person.Position" asp-items="ViewBag.PositionOptions"></abp-select>
+            <abp-select asp-for="Person.Staff" asp-items="ViewBag.StaffOptions"></abp-select>
+            <abp-select asp-for="Person.DoubleHatting" asp-items="ViewBag.DoubleHattingOptions"></abp-select>
+            <abp-select asp-for="Person.StaffGrade" asp-items="ViewBag.StaffGradeOptions"></abp-select>
+            <abp-select asp-for="Person.ContractType" asp-items="ViewBag.ContractTypeOptions"></abp-select>
             <abp-input asp-for="Person.StartDate" />
             <abp-input asp-for="Person.EndDate" />
             <abp-input asp-for="Person.IsActive" />

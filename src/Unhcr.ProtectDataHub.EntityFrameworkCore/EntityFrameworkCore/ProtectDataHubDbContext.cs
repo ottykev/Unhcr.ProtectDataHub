@@ -56,8 +56,8 @@ public class ProtectDataHubDbContext :
     public DbSet<TenantConnectionString> TenantConnectionStrings { get; set; }
 
     #endregion
-    public DbSet<Country> Countries { get; set; }
     public DbSet<Region> Regions { get; set; }
+    public DbSet<Country> Countries { get; set; }
     public DbSet<Person> Persons { get; set; }
 
     public ProtectDataHubDbContext(DbContextOptions<ProtectDataHubDbContext> options)
@@ -82,21 +82,21 @@ public class ProtectDataHubDbContext :
         builder.ConfigureTenantManagement();
 
         /* Configure your own tables/entities inside here */
-        builder.Entity<Country>(b =>
-        {
-            b.ToTable(ProtectDataHubConsts.DbTablePrefix + "Countries", ProtectDataHubConsts.DbSchema);
-            b.ConfigureByConvention(); //auto configure for the base class props
-            b.Property(x => x.Name).IsRequired().HasMaxLength(128);
-            b.Property(x => x.IsoCode).IsRequired().HasMaxLength(2);
-            b.Property(x => x.ClusterStructure).IsRequired();
-            b.HasOne<Region>().WithMany().HasForeignKey(x => x.RegionId);
-        });
         builder.Entity<Region>(b =>
         {
             b.ToTable(ProtectDataHubConsts.DbTablePrefix + "Regions", ProtectDataHubConsts.DbSchema);
             b.ConfigureByConvention(); //auto configure for the base class props
             b.Property(x => x.Name).IsRequired().HasMaxLength(RegionConsts.MaxNameLength);
             b.HasIndex(x => x.Name);
+        });
+        builder.Entity<Country>(b =>
+        {
+            b.ToTable(ProtectDataHubConsts.DbTablePrefix + "Countries", ProtectDataHubConsts.DbSchema);
+            b.ConfigureByConvention(); //auto configure for the base class props
+            b.Property(x => x.Name).IsRequired().HasMaxLength(CountryConsts.MaxNameLength);
+            b.Property(x => x.Code).IsRequired().HasMaxLength(CountryConsts.MaxCodeLength);
+            b.HasIndex(x => x.Name);
+            b.HasOne<Region>().WithMany().HasForeignKey(x => x.RegionId);
         });
         builder.Entity<Person>(b =>
         {

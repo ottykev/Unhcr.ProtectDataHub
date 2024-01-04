@@ -13,8 +13,8 @@ using Volo.Abp.EntityFrameworkCore;
 namespace Unhcr.ProtectDataHub.Migrations
 {
     [DbContext(typeof(ProtectDataHubDbContext))]
-    [Migration("20240102175255_Created_Country_Entity")]
-    partial class Created_Country_Entity
+    [Migration("20240103075411_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,6 +34,11 @@ namespace Unhcr.ProtectDataHub.Migrations
 
                     b.Property<int>("ClusterStructure")
                         .HasColumnType("integer");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(4)
+                        .HasColumnType("character varying(4)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -55,11 +60,6 @@ namespace Unhcr.ProtectDataHub.Migrations
                         .HasColumnType("text")
                         .HasColumnName("ExtraProperties");
 
-                    b.Property<string>("IsoCode")
-                        .IsRequired()
-                        .HasMaxLength(2)
-                        .HasColumnType("character varying(2)");
-
                     b.Property<DateTime?>("LastModificationTime")
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("LastModificationTime");
@@ -70,13 +70,15 @@ namespace Unhcr.ProtectDataHub.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(128)
-                        .HasColumnType("character varying(128)");
+                        .HasMaxLength(64)
+                        .HasColumnType("character varying(64)");
 
                     b.Property<Guid>("RegionId")
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name");
 
                     b.HasIndex("RegionId");
 

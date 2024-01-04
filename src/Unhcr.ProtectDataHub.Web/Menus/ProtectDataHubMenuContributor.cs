@@ -60,6 +60,31 @@ public class ProtectDataHubMenuContributor : IMenuContributor
         ).RequirePermissions(ProtectDataHubPermissions.Persons.Default)
     )
 );
+        context.Menu.AddItem(
+    new ApplicationMenuItem(
+        "SurveyCentre",
+        l["Menu:CCPM"],
+        icon: "fa fa-chart-simple"
+    ).AddItem(
+        new ApplicationMenuItem(
+            "ProtectDataHub.CCPMSurvey",
+            l["Menu:CCPMSurveys"],
+            url: "/CCPMSurveys"
+        )
+    ).AddItem(
+        new ApplicationMenuItem(
+            "ProtectDataHub.Reports",
+            l["Menu:Reports"],
+            url: "/Reports"
+        )
+    ).AddItem(
+        new ApplicationMenuItem(
+            "ProtectDataHub.SurveyTracking",
+            l["Menu:SurveyTracking"],
+            url: "/SurveyTracking"
+        )
+    )
+        );
 
 
         if (MultiTenancyConsts.IsEnabled)

@@ -3,13 +3,12 @@
     var createModal = new abp.ModalManager(abp.appPath + 'Persons/CreateModal');
     var editModal = new abp.ModalManager(abp.appPath + 'Persons/EditModal');
 
-    var DataTable = $('#PersonsTable').DataTable(
+    var dataTable = $('#PersonsTable').DataTable(
         abp.libs.datatables.normalizeConfiguration({
+            processing: true,
             serverSide: true,
             paging: true,
             order: [[1, "asc"]],
-            searching: true,
-            scrollX: true,
             ajax: abp.libs.datatables.createAjax(unhcr.protectDataHub.persons.person.getList),
             columnDefs: [
                 {
@@ -31,7 +30,7 @@
                                         return l('PersonDeletionConfirmationMessage', data.record.name);
                                     },
                                     action: function (data) {
-                                        unhcr.globalDataHub.persons.person
+                                        unhcr.protectDataHub.persons.person
                                             .delete(data.record.id)
                                             .then(function () {
                                                 abp.notify.info(l('SuccessfullyDeleted'));
@@ -161,12 +160,13 @@
             ]
         })
     );
-    var createModal = new abp.ModalManager(abp.appPath + 'Persons/CreateModal');
-    createModal.onResult(function () { DataTable.ajax.reload(); });
+    createModal.onResult(function () {
+        dataTable.ajax.reload();
+    });
     editModal.onResult(function () {
         dataTable.ajax.reload();
     });
-    $('#NewPersonButton').click(function (e) {
+    $('#NewRegionButton').click(function (e) {
         e.preventDefault();
         createModal.open();
     });

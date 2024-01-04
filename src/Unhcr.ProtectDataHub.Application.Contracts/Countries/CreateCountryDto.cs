@@ -5,14 +5,15 @@ using System.Text;
 
 namespace Unhcr.ProtectDataHub.Countries;
 
-public class CreateUpdateCountryDto
+public class CreateCountryDto
 {
     [Required]
-    [StringLength(128)]
+    [StringLength(CountryConsts.MaxNameLength)]
     public string Name { get; set; } = string.Empty;
     [Required]
-    [StringLength(2)]
-    public string IsoCode { get; set; } = string.Empty;
+    [StringLength(CountryConsts.MaxCodeLength)]
+    public string Code { get; set; } = string.Empty;
+    [Required]
+    public Cluster ClusterStructure { get; set; } = Cluster.None;
     public Guid RegionId { get; set; }
-    [Required] public Cluster ClusterStructure { get; set; }
 }

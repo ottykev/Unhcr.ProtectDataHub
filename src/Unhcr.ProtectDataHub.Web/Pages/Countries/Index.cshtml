@@ -10,8 +10,6 @@
 @section Scripts {
     <abp-script src="/Pages/Countries/Index.js" />
 }
-
-
 <abp-card>
     <abp-card-header>
         <abp-row>
@@ -22,9 +20,9 @@
                 @if (await AuthorizationService.IsGrantedAsync(ProtectDataHubPermissions.Countries.Create))
                 {
                     <abp-button id="NewCountryButton"
-                                  text="@L["NewCountry"].Value"
-                                  icon="plus"
-                                  button-type="Primary" />
+                                text="@L["NewCountry"].Value"
+                                icon="plus"
+                                button-type="Primary" />
                 }
             </abp-column>
         </abp-row>

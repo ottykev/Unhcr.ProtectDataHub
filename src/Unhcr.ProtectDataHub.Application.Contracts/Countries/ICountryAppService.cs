@@ -8,11 +8,12 @@ using Volo.Abp.Application.Services;
 namespace Unhcr.ProtectDataHub.Countries;
 
 public interface ICountryAppService:
-    ICrudAppService< //Defines CRUD methods
-        CountryDto, //Used to show countries
-        Guid, //Primary key of the country entity
-        PagedAndSortedResultRequestDto, //Used for paging/sorting
-        CreateUpdateCountryDto> //Used to create/update a country
+    ICrudAppService<
+               CountryDto,
+                      Guid,
+                             PagedAndSortedResultRequestDto,
+                                    CreateCountryDto,
+                                           UpdateCountryDto>
 {
     Task<ListResultDto<RegionLookupDto>> GetRegionLookupAsync();
 }

@@ -13,7 +13,8 @@ public class ProtectDataHubApplicationAutoMapperProfile : Profile
          * Alternatively, you can split your mapping configurations
          * into multiple profile classes for a better organization. */
         CreateMap<Country, CountryDto>();
-        CreateMap<CountryDto, CreateUpdateCountryDto>();
+        CreateMap<CountryDto, CreateCountryDto>();
+        CreateMap<CountryDto, UpdateCountryDto>();
         CreateMap<Region, RegionDto>();
         CreateMap<Person, PersonDto>();
         CreateMap<Region, RegionLookupDto>();

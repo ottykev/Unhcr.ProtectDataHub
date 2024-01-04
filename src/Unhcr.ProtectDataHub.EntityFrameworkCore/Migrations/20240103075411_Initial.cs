@@ -391,6 +391,27 @@ namespace Unhcr.ProtectDataHub.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "AppRegions",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: false),
+                    ExtraProperties = table.Column<string>(type: "text", nullable: false),
+                    ConcurrencyStamp = table.Column<string>(type: "character varying(40)", maxLength: 40, nullable: false),
+                    CreationTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    CreatorId = table.Column<Guid>(type: "uuid", nullable: true),
+                    LastModificationTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    LastModifierId = table.Column<Guid>(type: "uuid", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
+                    DeleterId = table.Column<Guid>(type: "uuid", nullable: true),
+                    DeletionTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppRegions", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "OpenIddictApplications",
                 columns: table => new
                 {
@@ -686,6 +707,33 @@ namespace Unhcr.ProtectDataHub.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "AppCountries",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: false),
+                    Code = table.Column<string>(type: "character varying(4)", maxLength: 4, nullable: false),
+                    ClusterStructure = table.Column<int>(type: "integer", nullable: false),
+                    RegionId = table.Column<Guid>(type: "uuid", nullable: false),
+                    ExtraProperties = table.Column<string>(type: "text", nullable: false),
+                    ConcurrencyStamp = table.Column<string>(type: "character varying(40)", maxLength: 40, nullable: false),
+                    CreationTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    CreatorId = table.Column<Guid>(type: "uuid", nullable: true),
+                    LastModificationTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    LastModifierId = table.Column<Guid>(type: "uuid", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppCountries", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AppCountries_AppRegions_RegionId",
+                        column: x => x.RegionId,
+                        principalTable: "AppRegions",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "OpenIddictAuthorizations",
                 columns: table => new
                 {
@@ -736,6 +784,50 @@ namespace Unhcr.ProtectDataHub.Migrations
                         name: "FK_AbpEntityPropertyChanges_AbpEntityChanges_EntityChangeId",
                         column: x => x.EntityChangeId,
                         principalTable: "AbpEntityChanges",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AppPersons",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    FullName = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: false),
+                    Email = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: false),
+                    PhoneNumber = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
+                    CountryId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Aor = table.Column<int>(type: "integer", nullable: false),
+                    LevelofCordination = table.Column<int>(type: "integer", nullable: false),
+                    DutyStation = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
+                    WorkingfromDutyStation = table.Column<bool>(type: "boolean", nullable: false),
+                    Organization_Type = table.Column<int>(type: "integer", nullable: false),
+                    OrganizationName = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: false),
+                    Position = table.Column<int>(type: "integer", nullable: false),
+                    Staff = table.Column<int>(type: "integer", nullable: false),
+                    DoubleHatting = table.Column<int>(type: "integer", nullable: false),
+                    StaffGrade = table.Column<int>(type: "integer", nullable: false),
+                    ContractType = table.Column<int>(type: "integer", nullable: false),
+                    StartDate = table.Column<DateTime>(type: "date", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "date", nullable: false),
+                    IsActive = table.Column<bool>(type: "boolean", nullable: false),
+                    ExtraProperties = table.Column<string>(type: "text", nullable: false),
+                    ConcurrencyStamp = table.Column<string>(type: "character varying(40)", maxLength: 40, nullable: false),
+                    CreationTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    CreatorId = table.Column<Guid>(type: "uuid", nullable: true),
+                    LastModificationTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    LastModifierId = table.Column<Guid>(type: "uuid", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
+                    DeleterId = table.Column<Guid>(type: "uuid", nullable: true),
+                    DeletionTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppPersons", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AppPersons_AppCountries_CountryId",
+                        column: x => x.CountryId,
+                        principalTable: "AppCountries",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -976,6 +1068,31 @@ namespace Unhcr.ProtectDataHub.Migrations
                 column: "UserName");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AppCountries_Name",
+                table: "AppCountries",
+                column: "Name");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppCountries_RegionId",
+                table: "AppCountries",
+                column: "RegionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppPersons_CountryId",
+                table: "AppPersons",
+                column: "CountryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppPersons_FullName",
+                table: "AppPersons",
+                column: "FullName");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppRegions_Name",
+                table: "AppRegions",
+                column: "Name");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_OpenIddictApplications_ClientId",
                 table: "OpenIddictApplications",
                 column: "ClientId");
@@ -1079,6 +1196,9 @@ namespace Unhcr.ProtectDataHub.Migrations
                 name: "AbpUserTokens");
 
             migrationBuilder.DropTable(
+                name: "AppPersons");
+
+            migrationBuilder.DropTable(
                 name: "OpenIddictScopes");
 
             migrationBuilder.DropTable(
@@ -1100,10 +1220,16 @@ namespace Unhcr.ProtectDataHub.Migrations
                 name: "AbpUsers");
 
             migrationBuilder.DropTable(
+                name: "AppCountries");
+
+            migrationBuilder.DropTable(
                 name: "OpenIddictAuthorizations");
 
             migrationBuilder.DropTable(
                 name: "AbpAuditLogs");
+
+            migrationBuilder.DropTable(
+                name: "AppRegions");
 
             migrationBuilder.DropTable(
                 name: "OpenIddictApplications");

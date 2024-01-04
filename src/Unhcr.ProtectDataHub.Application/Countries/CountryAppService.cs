@@ -10,23 +10,29 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Repositories;
-using Unhcr.ProtectDataHub.Countries;
 
-namespace Unhcr.GlobalDataHub.Countries;
+namespace Unhcr.ProtectDataHub.Countries;
 
 [Authorize(ProtectDataHubPermissions.Countries.Default)]
 public class CountryAppService :
-    CrudAppService<Country, CountryDto, Guid, PagedAndSortedResultRequestDto, CreateUpdateCountryDto>, ICountryAppService
+    CrudAppService<
+        Country,
+        CountryDto,
+        Guid,
+        PagedAndSortedResultRequestDto,
+        CreateCountryDto,
+        UpdateCountryDto>,
+    ICountryAppService
 {
     private readonly IRegionRepository _regionRepository;
     public CountryAppService(IRepository<Country, Guid> repository, IRegionRepository regionRepository) : base(repository)
     {
-        _regionRepository = regionRepository;
         GetPolicyName = ProtectDataHubPermissions.Countries.Default;
         GetListPolicyName = ProtectDataHubPermissions.Countries.Default;
         CreatePolicyName = ProtectDataHubPermissions.Countries.Create;
         UpdatePolicyName = ProtectDataHubPermissions.Countries.Edit;
         DeletePolicyName = ProtectDataHubPermissions.Countries.Delete;
+        _regionRepository = regionRepository;
     }
     public override async Task<CountryDto> GetAsync(Guid id)
     {
@@ -50,7 +56,6 @@ public class CountryAppService :
         countryDto.RegionName = queryResult.region.Name;
         return countryDto;
     }
-
     public override async Task<PagedResultDto<CountryDto>> GetListAsync(PagedAndSortedResultRequestDto input)
     {
         //Get the IQueryable<Country> from the repository
@@ -86,7 +91,6 @@ public class CountryAppService :
             countryDtos
         );
     }
-
     public async Task<ListResultDto<RegionLookupDto>> GetRegionLookupAsync()
     {
         var regions = await _regionRepository.GetListAsync();
@@ -95,7 +99,6 @@ public class CountryAppService :
             ObjectMapper.Map<List<Region>, List<RegionLookupDto>>(regions)
         );
     }
-
     private static string NormalizeSorting(string sorting)
     {
         if (sorting.IsNullOrEmpty())
@@ -115,3 +118,4 @@ public class CountryAppService :
         return $"country.{sorting}";
     }
 }
+
